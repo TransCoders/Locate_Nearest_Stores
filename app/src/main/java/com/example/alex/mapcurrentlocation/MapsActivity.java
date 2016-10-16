@@ -112,7 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    public class MyLocationListenerNetWork implements LocationListener {
+   /* public class MyLocationListenerNetWork implements LocationListener {
         @Override
         public void onLocationChanged(Location loc) {
             nlat = loc.getLatitude();
@@ -138,10 +138,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
         }
-    }
+    }*/
 
     //This is for Lat lng which is determine by your device GPS
-    public class MyLocationListenerGPS implements LocationListener {
+    /*public class MyLocationListenerGPS implements LocationListener {
         @Override
         public void onLocationChanged(Location loc) {
             glat = loc.getLatitude();
@@ -167,7 +167,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
         }
-    }
+    }*/
 
 
     public void showLoc(View v) {
