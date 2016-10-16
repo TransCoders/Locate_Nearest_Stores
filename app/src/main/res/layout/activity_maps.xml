@@ -1,0 +1,71 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MapsActivity">
+
+
+    <TextView
+    android:id="@+id/textViewGpsLng"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/textViewGpsLat"
+    android:layout_below="@+id/textViewGpsLat"
+    android:text="GPS Longitude:  "
+    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:context="com.example.alex.mapcurrentlocation.MapsActivity"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textViewGpsLng" />
+
+    <Button
+    android:id="@+id/buttonGetLoc"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:onClick="showLoc"
+    android:text="Show My Location"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textViewNetLat" />
+
+    <TextView
+    android:id="@+id/textViewNetLat"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:text="Network Latitude:  "
+        android:layout_below="@+id/buttonGetLoc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textViewGpsLat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GPS Latitude:  "
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_below="@+id/textViewNetLng"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+    android:id="@+id/textViewNetLng"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:text="Network Longitude:  "
+    android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_below="@+id/textViewNetLat"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    />
+
+</RelativeLayout>
