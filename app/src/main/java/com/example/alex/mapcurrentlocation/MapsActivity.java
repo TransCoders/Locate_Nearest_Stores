@@ -17,10 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.location.Location;
 import android.location.LocationListener;
-
-import android.util.Log;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -36,19 +33,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    double nlat;
-    double nlng;
-    double glat;
-    double glng;
 
-    LocationManager glocManager;
-    LocationListener glocListener;
-    LocationManager nlocManager;
-    LocationListener nlocListener;
-    TextView textViewNetLat;
-    TextView textViewNetLng;
-    TextView textViewGpsLat;
-    TextView textViewGpsLng;
+
+    private LocationManager glocManager;
+    private LocationListener glocListener;
+    private LocationManager nlocManager;
+    private LocationListener nlocListener;
+    private TextView textViewNetLat;
+    private TextView textViewNetLng;
+    private TextView textViewGpsLat;
+    private TextView textViewGpsLng;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -203,7 +197,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //IF GPS and Network location is accessible
         else {
             nlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            nlocListener = new MyLocationListenerNetWork();
+            nlocListener = new MyLocationListenerNetwork();
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
@@ -263,6 +257,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
         mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setCompassEnabled(true);
     }
 }
