@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,13 +23,14 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
     private DatabaseFunctions(Context context) {
         super(context, DatabaseName,  null, 1);
         PROGRAM_CONTEXT= context;
+        InsertData();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
         try {
-            db.execSQL("create table if not exist" + DatabaseName + " (KWDIKOS integer primary key ,ONOMA varchar , DIEYTHINSI varchar ,LATITUDE varchar, LONGTITUDE varchar)");
+            db.execSQL("create table IF NOT EXISTS STORES (KWDIKOS integer primary key ,ONOMA varchar , DIEYTHINSI varchar ,LATITUDE varchar, LONGTITUDE varchar)");
         }catch (Exception ex){
 
             Toast.makeText(PROGRAM_CONTEXT,"The Database can not be created . Please try again.",Toast.LENGTH_SHORT).show();

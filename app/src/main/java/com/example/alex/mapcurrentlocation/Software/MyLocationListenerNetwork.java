@@ -1,4 +1,4 @@
-package com.example.alex.mapcurrentlocation;
+package com.example.alex.mapcurrentlocation.Software;
 
 import android.location.Location;
 import android.location.LocationListener;

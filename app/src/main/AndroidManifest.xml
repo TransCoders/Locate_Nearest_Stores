@@ -30,7 +30,7 @@
             android:value="AIzaSyCcp3Us1P1n0pL4BMw2ut3yRiIDBzbyBpc" />
 
         <activity
-            android:name=".HomeScreenActivity"
+            android:name=".Software.HomeScreenActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

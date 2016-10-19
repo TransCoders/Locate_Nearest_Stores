@@ -1,4 +1,4 @@
-package com.example.alex.mapcurrentlocation;
+package com.example.alex.mapcurrentlocation.Software;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.alex.mapcurrentlocation.MapsActivity;
+import com.example.alex.mapcurrentlocation.R;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;

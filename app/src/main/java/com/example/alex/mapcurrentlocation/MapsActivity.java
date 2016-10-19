@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import android.location.LocationListener;
 
+import com.example.alex.mapcurrentlocation.Software.MyLocationListenerGPS;
+import com.example.alex.mapcurrentlocation.Software.MyLocationListenerNetwork;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
