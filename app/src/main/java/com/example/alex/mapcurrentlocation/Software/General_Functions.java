@@ -2,6 +2,8 @@ package com.example.alex.mapcurrentlocation.Software;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+
 /**
  * Created by James Nikolaidis on 10/19/2016.
  */
@@ -22,13 +24,13 @@ public class General_Functions {
         lat = coordinates[1];
     }
 
-    public void CompareLon_And_Lat(){
+    public ArrayList<Float> CompareLon_And_Lat(){
         //COMPARES USERS LAT,LON WITH THE STORES LAN-LON COORDINATES INSIDE THE DATABASE , AND RETURN A ARRAY LIST WITH THE VALUES OF
         //THE SHOPS THAT ARE WITHIN THE PERMITTED THRESHOLD DISTANCE.
 
 
 
-
+       return null;
     }
 
 
