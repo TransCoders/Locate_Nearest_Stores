@@ -109,7 +109,7 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
 
 
     //Create Singleton Class
-    public DatabaseFunctions GetDatabaseObject(Context context){
+    public static DatabaseFunctions GetDatabaseObject(Context context){
 
         if(dbObject.equals(null)){
             return new DatabaseFunctions(context);
