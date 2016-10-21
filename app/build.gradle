@@ -1,12 +1,25 @@
 apply plugin: 'com.android.application'
 
+
+
+
+
+
 android {
+    packagingOptions {
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'META-INF/NOTICE'
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/LICENSE.txt'
+    exclude 'META-INF/NOTICE.txt'
+}
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "com.example.alex.mapcurrentlocation"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 23
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
