@@ -309,7 +309,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private final android.location.LocationListener locationListenerNetwork = new android.location.LocationListener() {
         public void onLocationChanged(Location location) {
-        //    longitudeNetwork = location.getLongitude();
+            longitudeNetwork = location.getLongitude();
             latitudeNetwork = location.getLatitude();
 
             runOnUiThread(new Runnable() {
