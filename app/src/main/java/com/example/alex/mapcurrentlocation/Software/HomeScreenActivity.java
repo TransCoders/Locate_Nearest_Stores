@@ -2,6 +2,7 @@ package com.example.alex.mapcurrentlocation.Software;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -37,6 +38,13 @@ public class HomeScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen_activity);
+
+        Configuration config = getResources().getConfiguration();
+        if (config.smallestScreenWidthDp >= 600) {
+            setContentView(R.layout.home_screen_activity_small);
+        } else {
+            setContentView(R.layout.home_screen_activity);
+        }
 
         //Toast.makeText(this, "I'm alive", Toast.LENGTH_LONG).show();
 

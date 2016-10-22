@@ -54,6 +54,12 @@
             </intent-filter>
         </activity>
 
+        <supports-screens
+            android:anyDensity="true"
+            android:largeScreens="true"
+            android:normalScreens="true"
+            android:resizeable="true"
+            android:smallScreens="true" />
 
         <meta-data
             android:name="com.google.android.gms.version"
