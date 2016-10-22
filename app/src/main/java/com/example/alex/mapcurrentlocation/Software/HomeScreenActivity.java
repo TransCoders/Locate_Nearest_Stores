@@ -37,10 +37,10 @@ public class HomeScreenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_screen_activity);
+        //setContentView(R.layout.home_screen_activity);
 
         Configuration config = getResources().getConfiguration();
-        if (config.smallestScreenWidthDp >= 600) {
+        if (config.smallestScreenWidthDp <= 500) {
             setContentView(R.layout.home_screen_activity_small);
         } else {
             setContentView(R.layout.home_screen_activity);

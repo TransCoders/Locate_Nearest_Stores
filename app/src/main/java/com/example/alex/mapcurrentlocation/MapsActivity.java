@@ -139,6 +139,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mGoogleApiClient.connect();
     }
 
+
     @Override
     public void onConnected(Bundle bundle) {
 
@@ -157,6 +158,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onConnectionSuspended(int i) {
         Log.i(TAG, "Location services suspended. Please reconnect.");
     }
+
+
 
     @Override
     public void onLocationChanged(Location location) {
