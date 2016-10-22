@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.alex.mapcurrentlocation.MapsActivity;
 import com.example.alex.mapcurrentlocation.R;
@@ -37,16 +38,17 @@ public class HomeScreenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.home_screen_activity);
+        setContentView(R.layout.home_screen_activity);
 
         Configuration config = getResources().getConfiguration();
-        if (config.smallestScreenWidthDp <= 500) {
+        Toast.makeText(this, "I'm alive"+String.valueOf(config.screenWidthDp), Toast.LENGTH_LONG).show();
+        if (config.screenWidthDp <= 400) {
             setContentView(R.layout.home_screen_activity_small);
         } else {
             setContentView(R.layout.home_screen_activity);
         }
 
-        //Toast.makeText(this, "I'm alive", Toast.LENGTH_LONG).show();
+
 
         imageView = (ImageView) findViewById(R.id.imageView);
 
