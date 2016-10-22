@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alex.mapcurrentlocation.MapsActivity;
@@ -21,9 +23,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class HomeScreenActivity extends Activity {
 
-
     private TextView homeTextView;
     private Button continueButton;
+    private ImageView imageView;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -35,13 +38,11 @@ public class HomeScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen_activity);
 
-        homeTextView = (TextView) findViewById(R.id.textView3);
-        homeTextView = (TextView) findViewById(R.id.textView);
-        homeTextView = (TextView) findViewById(R.id.textView4);
-        homeTextView = (TextView) findViewById(R.id.textView5);
-        homeTextView = (TextView) findViewById(R.id.textView6);
-
         //Toast.makeText(this, "I'm alive", Toast.LENGTH_LONG).show();
+
+        imageView = (ImageView) findViewById(R.id.imageView);
+
+        homeTextView = (TextView) findViewById(R.id.textView);
 
         continueButton = (Button) findViewById(R.id.button2);
 
@@ -58,7 +59,6 @@ public class HomeScreenActivity extends Activity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        
     }
 
     /**

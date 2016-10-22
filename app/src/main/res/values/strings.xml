@@ -1,4 +1,12 @@
 <resources>
-    <string name="app_name">Stores_Current_Location</string>
+    <string name="app_name">Shops NearU</string>
     <string name="title_activity_maps">Map</string>
+    <string name="TransCoders_Organization">TransCoders Organization</string>
+    <string name="Δημήτρης_Νικολαΐδης">Δημήτρης Νικολαΐδης</string>
+    <string name="Τιλσίζογλου_Αναστάσιος">Τιλσίζογλου Αναστάσιος</string>
+    <string name="Λευτέρης_Λαμπίδης">Λευτέρης Λαμπίδης</string>
+    <string name="Αλέξανδρος_Χατζής">Αλέξανδρος Χατζής</string>
+    <string name="Μαγδαληνή_Κόιου">Μαγδαληνή Κόιου</string>
+    <string name="Continue">Continue</string>
+    <string name="description">AppIcon</string>
 </resources>

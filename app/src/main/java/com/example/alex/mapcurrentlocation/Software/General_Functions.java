@@ -50,37 +50,14 @@ public class General_Functions {
                         Passes_Stores.add(database_data.getString(database_data.getColumnIndex("LATITUDE")));
                         Log.d("System_Message", "Insert was Succesfull");
                     }catch (Exception ex){
-
                         Log.d("System_Message", "Insert was UnSuccesfull");
                     }
-
-
-                }else{database_data.moveToNext();}
-
-
+                }else{
+                    database_data.moveToNext();
+                }
                 database_data.moveToNext();
             }
-
-
-
-
-
         }
-
-
-
-            return null;
-
+        return null;
     }
-
-
-
-
-
-
-
-
-
-
-
 }
