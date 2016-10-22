@@ -3,10 +3,12 @@ package com.example.alex.mapcurrentlocation;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.hardware.GeomagneticField;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
@@ -37,7 +39,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
-
+    LocationManager locationManager;
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
@@ -45,6 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationRequest mLocationRequest;
     private double mDeclination;
     public static final String TAG = MapsActivity.class.getSimpleName();
+    private static double longitudeNetwork, latitudeNetwork;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
     @Override
@@ -72,6 +75,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+
     }
 
     /**
@@ -104,6 +109,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
+        locationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER, 60 * 1000, 10, locationListenerNetwork);
+        Toast.makeText(this, "Network provider started running", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -297,5 +305,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         AppIndex.AppIndexApi.end(mGoogleApiClient, getIndexApiAction());
         mGoogleApiClient.disconnect();
     }*/
+
+
+    private final android.location.LocationListener locationListenerNetwork = new android.location.LocationListener() {
+        public void onLocationChanged(Location location) {
+            longitudeNetwork = location.getLongitude();
+            latitudeNetwork = location.getLatitude();
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    LatLng sydney = new LatLng(latitudeNetwork, longitudeNetwork);
+                    mMap.addMarker(new MarkerOptions().position(sydney).title("Your Location"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+                    Toast.makeText(MapsActivity.this, "Network Provider update"+String.valueOf(longitudeNetwork), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
+
+
+
+
 }
 
