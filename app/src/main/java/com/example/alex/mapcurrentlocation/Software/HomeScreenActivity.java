@@ -39,7 +39,7 @@ public class HomeScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen_activity);
-          // magda comment
+          // magda comment//
         Configuration config = getResources().getConfiguration();
         Toast.makeText(this, "I'm alive"+String.valueOf(config.screenWidthDp), Toast.LENGTH_LONG).show();
         if (config.screenWidthDp <= 400) {
