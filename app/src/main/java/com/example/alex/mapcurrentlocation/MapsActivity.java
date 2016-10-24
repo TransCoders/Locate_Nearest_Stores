@@ -18,6 +18,8 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.alex.mapcurrentlocation.Database.DatabaseFunctions;
+import com.example.alex.mapcurrentlocation.Software.General_Functions;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -49,6 +51,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static final String TAG = MapsActivity.class.getSimpleName();
     private static double longitudeNetwork, latitudeNetwork;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private static DatabaseFunctions database;
+    private static General_Functions general_functions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
