@@ -49,7 +49,7 @@ public class HomeScreenActivity extends Activity {
         }
 
 
-         // a image view
+         // a image view.///////
         imageView = (ImageView) findViewById(R.id.imageView);
 
         homeTextView = (TextView) findViewById(R.id.textView);
