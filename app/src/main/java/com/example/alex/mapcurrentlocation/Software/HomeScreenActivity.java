@@ -48,7 +48,7 @@ public class HomeScreenActivity extends Activity {
             setContentView(R.layout.home_screen_activity);
         }
 
-
+//
          // a image view.///////
         imageView = (ImageView) findViewById(R.id.imageView);
 
