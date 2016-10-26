@@ -201,16 +201,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
 
-        /*
-        GeomagneticField field = new GeomagneticField(
-                (float)location.getLatitude(),
-                (float)location.getLongitude(),
-                (float)location.getAltitude(),
-                System.currentTimeMillis()
-        );
-
-        // getDeclination returns degrees
-        mDeclination = field.getDeclination();*/
     }
 
     @Override
@@ -329,19 +319,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         public void onLocationChanged(Location location) {
             longitudeNetwork = location.getLongitude();
             latitudeNetwork = location.getLatitude();
-
+            final LatLng[] position = new LatLng[1];
 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    LatLng position = new LatLng(latitudeNetwork, longitudeNetwork);
-
-                    mMap.addMarker(new MarkerOptions().position(position).title("Your Location"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
-
-                    Toast.makeText(MapsActivity.this, "Network Provider update" + String.valueOf(longitudeNetwork) + String.valueOf(latitudeNetwork), Toast.LENGTH_SHORT).show();
 
                 if(latitudeNetwork==0 ||longitudeNetwork==0 ){
+                    position[0] = new LatLng(latitudeNetwork, longitudeNetwork);
+
+                    mMap.addMarker(new MarkerOptions().position(position[0]).title("Your Location"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(position[0]));
+                    Toast.makeText(MapsActivity.this, "Network Provider update" + String.valueOf(longitudeNetwork) + String.valueOf(latitudeNetwork), Toast.LENGTH_SHORT).show();
 
 
                 }else {
@@ -356,12 +345,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         int i = 0;
                         int j = 0;
                         while (dataArray.size() > j) {
-
-                            Log.d("Message", "GGGGGGGG" + dataArray.get(j));
-                            Log.d("Message", "fdfdffdfdf" + dataArray.get(j + 1));
-                            position = new LatLng(Double.parseDouble(dataArray.get(j + 1)), Double.parseDouble(dataArray.get(j)));
-                            mMap.addMarker(new MarkerOptions().position(position).title(dataArray.get(j + 2)));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
+                            position[0] = new LatLng(Double.parseDouble(dataArray.get(j + 1)), Double.parseDouble(dataArray.get(j)));
+                            mMap.addMarker(new MarkerOptions().position(position[0]).title(dataArray.get(j + 2)));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(position[0]));
 
 
                             i++;

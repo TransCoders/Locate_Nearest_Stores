@@ -41,7 +41,6 @@ public class HomeScreenActivity extends Activity {
         setContentView(R.layout.home_screen_activity);
           // magda comment////
         Configuration config = getResources().getConfiguration();
-        Toast.makeText(this, "I'm alive"+String.valueOf(config.screenWidthDp), Toast.LENGTH_LONG).show();
         if (config.screenWidthDp <= 400) {
             setContentView(R.layout.home_screen_activity_small);
         } else {

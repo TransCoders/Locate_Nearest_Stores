@@ -22,11 +22,14 @@ public class General_Functions {
         APPLICATION_CONTEXT=context;
     }
 
+
     public void GiveLan_Lon(double ...coordinates){
-        Log.d("MessageText","Inside Coordinates");
+
         lon = coordinates[0];
         lat = coordinates[1];
     }
+
+
 
     public ArrayList<String> CompareLon_And_Lat(){
         //COMPARES USERS LAT,LON WITH THE STORES LAN-LON COORDINATES INSIDE THE DATABASE , AND RETURN A ARRAY LIST WITH THE VALUES OF
@@ -37,7 +40,7 @@ public class General_Functions {
         if(databaseFunctions!=null){
             Cursor database_data = databaseFunctions.GetDatabase_ALL_DATA();
             database_data.moveToFirst();
-            for(int counter1=0; counter1!=database_data.getColumnCount();counter1++){
+            for(int counter1=0; counter1!=database_data.getCount();counter1++){
 
                 if(FindDistance(lat,Double.parseDouble(database_data.getString(3)),lon,Double.parseDouble(database_data.getString(4)))<THRESHOLD_DISTANCE)
                 {
@@ -70,23 +73,31 @@ public class General_Functions {
         return Passes_Stores;
     }
 
-    public double FindDistance(double ...coordinates){
+
+    //*********** Function which return the distance in meters on two
+    // LatLng positions
+
+    public double FindDistance(double ...coordinates) {
 
         double R = 6371.000; // metres
-        double  f1 =  coordinates[0]*(3.1415926535897932/180);
-        double  f2 = coordinates[1]*(3.1415926535897932/180);
-        double  df = (coordinates[1]-coordinates[0])*(3.1415926535897932/180);
-        double  dl= (coordinates[3]-coordinates[2])*(3.1415926535897932/180);
+        double f1 = coordinates[0] * (3.1415926535897932 / 180);
+        double f2 = coordinates[1] * (3.1415926535897932 / 180);
+        double df = (coordinates[1] - coordinates[0]) * (3.1415926535897932 / 180);
+        double dl = (coordinates[3] - coordinates[2]) * (3.1415926535897932 / 180);
 
-        double a = Math.sin(df/2) * Math.sin(df/2) +
+        double a = Math.sin(df / 2) * Math.sin(df / 2) +
                 Math.cos(f1) * Math.cos(f2) *
-                        Math.sin(dl/2) * Math.sin(dl/2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                        Math.sin(dl / 2) * Math.sin(dl / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
         double d = R * c;
 
-         return d;
+        return d;
     }
+    //*********************END
+
+
+
 
 
 }
