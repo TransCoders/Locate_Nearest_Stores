@@ -37,6 +37,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -53,13 +55,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private static DatabaseFunctions database;
     private static General_Functions general_functions;
+    private static float lat,lon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-         database=DatabaseFunctions.GetDatabaseObject(getApplicationContext());
-      //  general_functions = new General_Functions();
+        database= DatabaseFunctions.getInstance(getApplicationContext());
+        general_functions = new General_Functions();
+        database.InsertData();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -118,6 +122,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().setCompassEnabled(true);
         locationManager.requestLocationUpdates(
                 LocationManager.NETWORK_PROVIDER, 60 * 1000, 10, locationListenerNetwork);
+
+
+
         Toast.makeText(this, "Network provider started running", Toast.LENGTH_LONG).show();
     }
 
@@ -177,6 +184,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         //Place current location marker
+
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
@@ -322,15 +330,54 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             longitudeNetwork = location.getLongitude();
             latitudeNetwork = location.getLatitude();
 
+
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    LatLng sydney = new LatLng(latitudeNetwork, longitudeNetwork);
-                    mMap.addMarker(new MarkerOptions().position(sydney).title("Your Location"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                    LatLng position = new LatLng(latitudeNetwork, longitudeNetwork);
 
-                    Toast.makeText(MapsActivity.this, "Network Provider update"+String.valueOf(longitudeNetwork), Toast.LENGTH_SHORT).show();
+                    mMap.addMarker(new MarkerOptions().position(position).title("Your Location"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
+
+                    Toast.makeText(MapsActivity.this, "Network Provider update" + String.valueOf(longitudeNetwork) + String.valueOf(latitudeNetwork), Toast.LENGTH_SHORT).show();
+
+                if(latitudeNetwork==0 ||longitudeNetwork==0 ){
+
+
+                }else {
+                    general_functions.GiveLan_Lon(longitudeNetwork, latitudeNetwork);
+                    ArrayList<String> dataArray = new ArrayList<>();
+                    dataArray = general_functions.CompareLon_And_Lat();
+
+
+                    if (dataArray == null) {
+                        Log.d("Message", "is null");
+                    } else {
+                        int i = 0;
+                        int j = 0;
+                        while (dataArray.size() > j) {
+
+                            Log.d("Message", "GGGGGGGG" + dataArray.get(j));
+                            Log.d("Message", "fdfdffdfdf" + dataArray.get(j + 1));
+                            position = new LatLng(Double.parseDouble(dataArray.get(j + 1)), Double.parseDouble(dataArray.get(j)));
+                            mMap.addMarker(new MarkerOptions().position(position).title(dataArray.get(j + 2)));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
+
+
+                            i++;
+                            j = j + 3;
+                        }
+
+
+                    }
+
                 }
+
+
+                }
+
+
+
             });
         }
 
@@ -349,7 +396,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
     };
-
 
 
 

@@ -17,13 +17,14 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
     public static final String DatabaseName = "STORES";
     public static final String[] TABLE_COLLUMS = new String[]{"KWDIKOS","ONOMA","DIEYTHINSI","LATITUDE ","LONGTITUDE"};
     public static Context PROGRAM_CONTEXT ;
-    private static DatabaseFunctions dbObject;
+    private static DatabaseFunctions database = null;
+
 
 
     private DatabaseFunctions(Context context) {
         super(context, DatabaseName,  null, 1);
         PROGRAM_CONTEXT= context;
-        InsertData();
+        //
     }
 
     @Override
@@ -55,8 +56,7 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 
 
-        for(int i=0; i<Values.length;i++,counter1++) {
-
+        for(int i=0; i!=Values.length;i++,counter1++) {
             contentValues.put(TABLE_COLLUMS[counter1],Values[i]);
         }
 
@@ -77,7 +77,9 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
     public Cursor GetDatabaseData(int position ){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from STORES  where KWDIKOS="+position+"",null );
-        return res;
+        res.moveToFirst();
+
+         return res;
 
     }
 
@@ -86,35 +88,37 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
     public Cursor GetDatabase_ALL_DATA(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from STORES ",null );
+        Log.d("Porto",String.valueOf(res.getColumnCount()));
         return res;
 
     }
 
 
     // *********************   Created By Magdalini Koiou
-    private void InsertData(){
+    public void InsertData(){
 
 
-
-        InsertDataToDatabase("Mammas pizza","Κιουταχείας 6","40.268508","22.501781");
-        InsertDataToDatabase("Family","Ερμού και Παναγή Τσαλδάρη","37.963928","23.648268");
-        InsertDataToDatabase("Coffee island","Ερμού 19","41.089990","23.548625");
-        InsertDataToDatabase("Καλύτερος","Μεραρχίας 30","41.088124","23.548523");
-        InsertDataToDatabase("Αστόρια","Μεραρχίας 33","40.691612","21.681245");
         InsertDataToDatabase("Το ερατεινό","Βενιζέλου 9","41.089392","23.545757");
         InsertDataToDatabase("Δημοσθένης","Εμμανουήλ Ανδρόνικου 24","41.090035","23.548703");
+        InsertDataToDatabase("Mammas pizza","Κιουταχείας 6","41.0863173","23.541439999999966");
+        InsertDataToDatabase("Family","Ερμού και Παναγή Τσαλδάρη","41.0896086","23.547109699999964");
+        InsertDataToDatabase("Coffee island","Ερμού 19","41.089990","23.548625");
+        /*
+        InsertDataToDatabase("Καλύτερος","Μεραρχίας 30","41.088124","23.548523");
+        InsertDataToDatabase("Αστόρια","Μεραρχίας 33","41.0880907","23.54861310000001");
+        */
+
 
     }
 //********************************************
 
 
-    //Create Singleton Class
-    public static DatabaseFunctions GetDatabaseObject(Context context){
 
-        if(dbObject.equals(null)){
-            return new DatabaseFunctions(context);
-
+    public  static  DatabaseFunctions getInstance(Context context){
+        if(database==null){
+            database = new DatabaseFunctions(context);
         }
-        return  dbObject;
+        return database;
+
     }
 }
