@@ -17,13 +17,14 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
     public static final String DatabaseName = "STORES";
     public static final String[] TABLE_COLLUMS = new String[]{"KWDIKOS","ONOMA","DIEYTHINSI","LATITUDE ","LONGTITUDE"};
     public static Context PROGRAM_CONTEXT ;
-    private static DatabaseFunctions database = null;
+    private static DatabaseFunctions database;
 
 
 
     private DatabaseFunctions(Context context) {
         super(context, DatabaseName,  null, 1);
         PROGRAM_CONTEXT= context;
+        InsertData();
 
     }
 
@@ -104,7 +105,7 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
     // *********************Created By Magdalini Koiou
     public void InsertData(){
 
-
+        Log.d("Message","Database");
         InsertDataToDatabase("Το ερατεινό","Βενιζέλου 9","41.089392","23.545757");
         InsertDataToDatabase("Δημοσθένης","Εμμανουήλ Ανδρόνικου 24","41.090035","23.548703");
         InsertDataToDatabase("Mammas pizza","Κιουταχείας 6","41.0863173","23.541439999999966");
@@ -112,7 +113,13 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
         InsertDataToDatabase("Coffee island","Ερμού 19","41.089990","23.548625");
         InsertDataToDatabase("Καλύτερος","Μεραρχίας 30","41.088124","23.548523");
         InsertDataToDatabase("Αστόρια","Μεραρχίας 33","41.0880907","23.54861310000001");
-
+        InsertDataToDatabase("Mikel Ευόσμου","Καραολή & Δημητρίου 92","40.6666706","22.911326199999962");
+        InsertDataToDatabase("Hondos Center","Π. Μελά 31","40.6685303","22.908910900000024");
+        InsertDataToDatabase("BEAVER Coffee & Drinks","Αμπελώνων 43 αμπελοκηποι","40.6498717","22.925945100000035");
+        InsertDataToDatabase("WHY","Ηφαίστου 11, 62100 ","41.0891809","23.54759880000006");
+        InsertDataToDatabase("Seven Spot","Εθνικής Αντιστάσεως 64 Κορδελιό","40.6698528","22.89730480000003");
+        InsertDataToDatabase("Ψιλικατζίδικο"," Πολυτεχνείου 50 Κορδελιό","40.6718655","22.89588200000003");
+        InsertDataToDatabase("Vodafone","Παπανδρέου Ανδρέα 28","40.6682429","22.894566899999973");
 
 
     }
@@ -123,6 +130,7 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
 
     public  static  DatabaseFunctions getInstance(Context context){
         if(database==null){
+
             database = new DatabaseFunctions(context);
         }
         return database;

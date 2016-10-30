@@ -15,7 +15,7 @@ public class General_Functions {
 
     private static double  lon,lat ;
     private  static  Context APPLICATION_CONTEXT;
-    private static int THRESHOLD_DISTANCE = 5000; // IN KM
+    private static double THRESHOLD_DISTANCE = 0.5; // IN KM
     private DatabaseFunctions databaseFunctions ;
 
     public void GeneralFunctions(Context context){
@@ -24,7 +24,6 @@ public class General_Functions {
 
 
     public void GiveLan_Lon(double ...coordinates){
-
         lon = coordinates[0];
         lat = coordinates[1];
     }
@@ -36,39 +35,44 @@ public class General_Functions {
         //THE SHOPS THAT ARE WITHIN THE PERMITTED THRESHOLD DISTANCE.
         databaseFunctions = DatabaseFunctions.getInstance(APPLICATION_CONTEXT);
         ArrayList<String>Passes_Stores = new ArrayList<>();
+        int counter1;
+
 
         if(databaseFunctions!=null){
             Cursor database_data = databaseFunctions.GetDatabase_ALL_DATA();
             database_data.moveToFirst();
-            for(int counter1=0; counter1!=database_data.getCount();counter1++){
+            int i=0;
 
-                if(FindDistance(lat,Double.parseDouble(database_data.getString(3)),lon,Double.parseDouble(database_data.getString(4)))<THRESHOLD_DISTANCE)
-                {
+        do{
+/*
+FindDistance(lat,Double.parseDouble(database_data.getString(3)),lon,Double.parseDouble(database_data.getString(4)))
+ */
+                 double dlat = Double.valueOf(database_data.getString(3));
+                 double dlon = Double.valueOf(database_data.getString(4));
+                 double fin = FindDistance(lat,dlat,lon,dlon);
+
+
+
+                if(fin<0.400) {
+
 
                     try {
-
-                        try {
-
-                            Passes_Stores.add(database_data.getString(database_data.getColumnIndex("LONGTITUDE")));
-                            Passes_Stores.add(database_data.getString(database_data.getColumnIndex("LATITUDE")));
-                            Passes_Stores.add(database_data.getString(database_data.getColumnIndex("ONOMA")));
-                        }catch (Exception ex){
-
-                        }
-                    }catch (Exception ex){
+                        Passes_Stores.add(database_data.getString(database_data.getColumnIndex("LONGTITUDE")));
+                        Passes_Stores.add(database_data.getString(database_data.getColumnIndex("LATITUDE")));
+                        Passes_Stores.add(database_data.getString(database_data.getColumnIndex("ONOMA")));
+                    } catch (Exception ex) {
                         Log.d("System_Message", "Insert was UnSuccesfull");
                     }
 
-                }else{
-                    database_data.moveToNext();
-                    }
+                }
                 database_data.moveToNext();
+                i++;
 
 
-
-            }
+            }while(i<database_data.getCount());
 
         }
+
 
         return Passes_Stores;
     }
@@ -91,6 +95,7 @@ public class General_Functions {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
         double d = R * c;
+        Log.d("Life",String.valueOf(d));
 
         return d;
     }
