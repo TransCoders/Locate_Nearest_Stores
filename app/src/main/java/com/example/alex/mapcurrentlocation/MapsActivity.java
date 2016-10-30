@@ -43,6 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
+
     LocationManager locationManager;
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -88,6 +89,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
+
+
     }
 
     /**
@@ -121,7 +124,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
         locationManager.requestLocationUpdates(
-                LocationManager.NETWORK_PROVIDER, 60 * 1000, 10, locationListenerNetwork);
+                LocationManager.GPS_PROVIDER, 60 * 1000, 10, locationListenerNetwork);
 
 
 
