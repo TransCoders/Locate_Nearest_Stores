@@ -63,7 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         database= DatabaseFunctions.getInstance(getApplicationContext());
         general_functions = new General_Functions();
-        database.InsertData();
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -132,7 +132,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onResume() {
         super.onResume();
 
-        mGoogleApiClient.connect();
+
     }
 
     @Override
@@ -182,19 +182,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
         }
-
+        final LatLng[] position = new LatLng[1];
         //Place current location marker
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
-        markerOptions.title("Current Position");
+        markerOptions.title("Users Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+
+        general_functions.GiveLan_Lon( location.getLongitude(), location.getLatitude());
+        ArrayList<String> dataArray = general_functions.CompareLon_And_Lat();
+
+
+
+        if (dataArray == null) {
+            Log.d("Message", "is null");
+        } else {
+            int i = 0;
+            int j = 0;
+            while (dataArray.size() > j) {
+                position[0] = new LatLng(Double.parseDouble(dataArray.get(j + 1)), Double.parseDouble(dataArray.get(j)));
+                mMap.addMarker(new MarkerOptions().position(position[0]).title(dataArray.get(j + 2)));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(position[0]));
+
+
+                i++;
+                j = j + 3;
+            }
+
+        }
 
         //stop location updates
         if (mGoogleApiClient != null) {
@@ -325,18 +347,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 @Override
                 public void run() {
 
-                if(latitudeNetwork==0 ||longitudeNetwork==0 ){
                     position[0] = new LatLng(latitudeNetwork, longitudeNetwork);
+                    if (mMap!=null){
+                        mMap.clear();
+                        mMap.addMarker(new MarkerOptions().position(position[0]).title("Your Location"));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(position[0]));
+                        Toast.makeText(MapsActivity.this, "Network Provider update" + String.valueOf(longitudeNetwork)+":" + String.valueOf(latitudeNetwork), Toast.LENGTH_SHORT).show();
 
-                    mMap.addMarker(new MarkerOptions().position(position[0]).title("Your Location"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(position[0]));
-                    Toast.makeText(MapsActivity.this, "Network Provider update" + String.valueOf(longitudeNetwork) + String.valueOf(latitudeNetwork), Toast.LENGTH_SHORT).show();
+                    }else{
+                        mMap.addMarker(new MarkerOptions().position(position[0]).title("Your Location"));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(position[0]));
+                        Toast.makeText(MapsActivity.this, "Network Provider update" + String.valueOf(longitudeNetwork) +":"+String.valueOf(latitudeNetwork), Toast.LENGTH_SHORT).show();
+
+                    }
 
 
-                }else {
                     general_functions.GiveLan_Lon(longitudeNetwork, latitudeNetwork);
-                    ArrayList<String> dataArray = new ArrayList<>();
-                    dataArray = general_functions.CompareLon_And_Lat();
+                    ArrayList<String> dataArray = general_functions.CompareLon_And_Lat();
+
 
 
                     if (dataArray == null) {
@@ -354,10 +382,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             j = j + 3;
                         }
 
-
+                        Log.d("Message","Mark2");
                     }
 
-                }
+
 
 
                 }
