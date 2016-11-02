@@ -53,7 +53,7 @@ FindDistance(lat,Double.parseDouble(database_data.getString(3)),lon,Double.parse
 
 
 
-                if(fin<0.400) {
+                if(fin<0.500) {
 
 
                     try {
